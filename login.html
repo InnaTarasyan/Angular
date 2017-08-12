@@ -1,0 +1,79 @@
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<div class="container">
+    <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Please sign up for Bootsnipp <small>It's free!</small></h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" ng-app="myApp"  ng-controller="validateCtrl"
+                          name="myForm" novalidate>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name" ng-model="first_name" required>
+                                    <span style="color:red" ng-show="myForm.first_name.$dirty && myForm.first_name.$invalid">
+                                        <span ng-show="myForm.first_name.$error.required">First Name is required.</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name" ng-model="last_name" required>
+                                    <span style="color:red" ng-show="myForm.last_name.$dirty && myForm.last_name.$invalid">
+                                        <span ng-show="myForm.last_name.$error.required">Last name is required.</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address" ng-model="email" required>
+                            <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                                <span ng-show="myForm.email.$error.required">Email name is required.</span>
+                                <span ng-show="myForm.email.$error">Email is invalid.</span>
+                             </span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" ng-model="password" required>
+                                    <span style="color:red" ng-show="myForm.password.$dirty && myForm.password.$invalid">
+                                        <span ng-show="myForm.password.$error.required">Password is required.</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" ng-model="password_confirmation" required>
+                                    <span style="color:red" ng-show="myForm.password_confirmation.$dirty && myForm.password_confirmation.$invalid">
+                                        <span ng-show="myForm.password_confirmation.$error.required">Password Confirmation is required.</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Register" class="btn btn-info btn-block" ng-disabled="myForm.first_name.$dirty && myForm.first_name.$invalid || myForm.last_name.$dirty && myForm.last_name.$invalid ||
+myForm.email.$dirty && myForm.email.$invalid || myForm.password.$dirty && myForm.password.$invalid || myForm.password_confirmation.$dirty && myForm.password_confirmation.$invalid">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('validateCtrl', function($scope) {
+      console.log('ok');
+    });
+</script>
+</html>
