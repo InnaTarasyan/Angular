@@ -3,7 +3,6 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
 <div class="container">
     <div class="row centered-form">
@@ -72,38 +71,6 @@ myForm.email.$dirty && myForm.email.$invalid || myForm.password.$dirty && myForm
         </div>
     </div>
 </div>
-<script>
-    var app = angular.module('myApp', []);
-    app.controller('validateCtrl', function($scope) {
-      console.log('ok');
-    });
-    angular.module('myApp').directive('equals', function() {
-        return {
-            restrict: 'A', // only activate on element attribute
-            require: '?ngModel', // get a hold of NgModelController
-            link: function(scope, elem, attrs, ngModel) {
-                if(!ngModel) return; // do nothing if no ng-model
-
-                // watch own value and re-validate on change
-                scope.$watch(attrs.ngModel, function() {
-                    validate();
-                });
-
-                // observe the other value and re-validate on change
-                attrs.$observe('equals', function (val) {
-                    validate();
-                });
-
-                var validate = function() {
-                    // values
-                    var val1 = ngModel.$viewValue;
-                    var val2 = attrs.equals;
-
-                    // set validity
-                    ngModel.$setValidity('equals', ! val1 || ! val2 || val1 === val2);
-                };
-            }
-        }
-    });
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="controller.js" type="text/javascript"></script>
 </html>
