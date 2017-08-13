@@ -45,7 +45,7 @@
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" ng-model="password" required>
+                                    <input equals="{{password_confirmation}}" type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" ng-model="password" required>
                                     <span style="color:red" ng-show="myForm.password.$dirty && myForm.password.$invalid">
                                         <span ng-show="myForm.password.$error.required">Password is required.</span>
                                     </span>
@@ -53,14 +53,16 @@
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" ng-model="password_confirmation" required>
+                                    <input equals="{{password}}" type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" ng-model="password_confirmation" required>
                                     <span style="color:red" ng-show="myForm.password_confirmation.$dirty && myForm.password_confirmation.$invalid">
                                         <span ng-show="myForm.password_confirmation.$error.required">Password Confirmation is required.</span>
+                                    </span>
+                                    <span style="color:red" ng-show="myForm.password_confirmation.$error.equals">
+                                        Passwords are not equal!
                                     </span>
                                 </div>
                             </div>
                         </div>
-
                         <input type="submit" value="Register" class="btn btn-info btn-block" ng-disabled="myForm.first_name.$dirty && myForm.first_name.$invalid || myForm.last_name.$dirty && myForm.last_name.$invalid ||
 myForm.email.$dirty && myForm.email.$invalid || myForm.password.$dirty && myForm.password.$invalid || myForm.password_confirmation.$dirty && myForm.password_confirmation.$invalid">
 
@@ -74,6 +76,34 @@ myForm.email.$dirty && myForm.email.$invalid || myForm.password.$dirty && myForm
     var app = angular.module('myApp', []);
     app.controller('validateCtrl', function($scope) {
       console.log('ok');
+    });
+    angular.module('myApp').directive('equals', function() {
+        return {
+            restrict: 'A', // only activate on element attribute
+            require: '?ngModel', // get a hold of NgModelController
+            link: function(scope, elem, attrs, ngModel) {
+                if(!ngModel) return; // do nothing if no ng-model
+
+                // watch own value and re-validate on change
+                scope.$watch(attrs.ngModel, function() {
+                    validate();
+                });
+
+                // observe the other value and re-validate on change
+                attrs.$observe('equals', function (val) {
+                    validate();
+                });
+
+                var validate = function() {
+                    // values
+                    var val1 = ngModel.$viewValue;
+                    var val2 = attrs.equals;
+
+                    // set validity
+                    ngModel.$setValidity('equals', ! val1 || ! val2 || val1 === val2);
+                };
+            }
+        }
     });
 </script>
 </html>
