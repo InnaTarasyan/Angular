@@ -1,7 +1,16 @@
 var app = angular.module('myApp', []);
-app.controller('validateCtrl', function($scope) {
-    console.log('ok');
-});
+app.controller('validateCtrl', ['$scope', '$document', function($scope, $document) {
+
+    $scope.onFormSubmit = function () {
+        var inputs = $document[0].querySelectorAll('#myForm input');
+        var data = {};
+        inputs.forEach(function(input) {
+            data[input.name] = input.value;
+        });
+        console.log(data);
+    };
+
+}]);
 angular.module('myApp').directive('equals', function() {
     return {
         restrict: 'A', // only activate on element attribute

@@ -12,7 +12,7 @@
                     <h3 class="panel-title">Please sign up for Bootsnipp <small>It's free!</small></h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form" ng-app="myApp"  ng-controller="validateCtrl"
+                    <form role="form" ng-app="myApp"  ng-controller="validateCtrl" id="myForm"
                           name="myForm" novalidate>
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -67,8 +67,7 @@
                         </div>
                         <!--<input ng-click="submitted=true" type="submit" value="Register" class="btn btn-info btn-block" ng-disabled="myForm.$invalid || myForm.first_name.$dirty && myForm.first_name.$invalid || myForm.last_name.$dirty && myForm.last_name.$invalid ||-->
 <!--myForm.email.$dirty && myForm.email.$invalid || myForm.password.$dirty && myForm.password.$invalid || myForm.password_confirmation.$dirty && myForm.password_confirmation.$invalid">-->
-                        <input type="submit" value="Register" class="btn btn-info btn-block" ng-disabled="myForm.$invalid">
-
+                        <input type="submit" ng-click="onFormSubmit()" value="Register" class="btn btn-info btn-block" ng-disabled="myForm.$invalid">
                     </form>
                 </div>
             </div>
