@@ -1,5 +1,6 @@
 var crypto = require('crypto');
 var util = require('util');
+var async = require('async');
 
 var mongoose = require('server/libs/mongoose'),
     Schema = mongoose.Schema;
@@ -45,5 +46,29 @@ schema.virtual('password')
         this.hashedPassword = this.encryptPassword(password);
     })
     .get(function() { return this._plainPassword; });
+
+
+schema.statics.authorize = function(username, password, callback) {
+    var User = this;
+
+    async.waterfall([
+        function(callback) {
+            User.findOne({email: username}, callback);
+        },
+        function(user, callback) {
+            if (user) {
+                if (user.checkPassword(password)) {
+                    callback(null, user);
+                } else {
+                    callback(new AuthError("Пароль неверен"));
+                }
+            }
+        }
+    ], callback);
+};
+
+schema.methods.checkPassword = function(password) {
+    return this.encryptPassword(password) === this.hashedPassword;
+};
 
 exports.User = mongoose.model('User', schema);
