@@ -3,7 +3,7 @@ var async = require('async');
 
 async.series([
     open,
-    dropDatabase,
+   // dropDatabase,
     requireModels,
     createUsers
 ], function(err) {
@@ -31,11 +31,15 @@ function requireModels(callback) {
 
 function createUsers(callback) {
 
+    // var users = [
+    //     {first_name: 'Вася', last_name: 'Петров', email: 'vas@aa.com', password: 'supervasya'},
+    //     {first_name: 'Петя', last_name: 'Васильев', email: 'vaspet@dd.com', password: '123'},
+    //     {first_name: 'admin', last_name: 'admin', email: 'admin@admin.com', password: 'thetruehero'}
+    // ];
     var users = [
-        {first_name: 'Вася', last_name: 'Петров', email: 'vas@aa.com', password: 'supervasya'},
-        {first_name: 'Петя', last_name: 'Васильев', email: 'vaspet@dd.com', password: '123'},
-        {first_name: 'admin', last_name: 'admin', email: 'admin@admin.com', password: 'thetruehero'}
+        {first_name: 'ddt', last_name: 'ddt', email: 'dd@yandex.hru', password: 'supervasyadnd'}
     ];
+
 
     async.each(users, function(userData, callback) {
         var user = new mongoose.models.User(userData);
