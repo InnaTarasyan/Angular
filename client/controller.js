@@ -1,4 +1,8 @@
+
 var app = angular.module('myApp', []);
+var socket = io.connect( 'http://localhost:8081' );
+
+
 app.controller('validateCtrl', ['$scope', '$document', function($scope, $document) {
 
     $scope.onFormSubmit = function () {
@@ -7,7 +11,10 @@ app.controller('validateCtrl', ['$scope', '$document', function($scope, $documen
         inputs.forEach(function(input) {
             data[input.name] = input.value;
         });
-        console.log(data);
+
+        socket.emit('message', data, function(data) {
+           // console.log(data);
+        });
     };
 
 }]);
